@@ -101,3 +101,6 @@ following columns:
 > 
 > Consequently, rows that do have these variables correspond to the
 > **training dataset**.
+
+**PangenomeCountMeropenem.tsv.gz** stores measurements for meropenem, and
+**PangenomeCountCiprofloxacin.tsv.gz** for ciprofloxacin.
