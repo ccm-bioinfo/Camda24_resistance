@@ -101,3 +101,18 @@ following columns:
 > 
 > Consequently, rows that do have these variables correspond to the
 > **training dataset**.
+
+### 6. AMR gene count table (AmrGeneCounts.tsv.zip)
+> [!IMPORTANT]
+> This file is compressed to save space. Decompress it with unzip AmrGeneCounts.tsv.zip.
+
+Table containing counts of AMR genes for different bacterial isolates. Includes sample metadata (accession number, genus, species, phenotype, antibiotic, and measurement value) and counts of AMR genes labeled with ARO ids. 
+The file has 6310 rows and 4759 columns.
+
+The table contains the following columns:
+- **accession, genus, species** - sample metadata.
+- **phenotype** - the first prediction target. Can have one of two values: Resistant or Susceptible.
+- **antibiotic** - name of the antibiotic tested.
+- **measurement_value** - the second prediction target. Stores positive numeric values representing the MIC (minimum inhibitory concentration).
+- **columns starting with 300...** - feature data. Contains counts of genes conferring antibiotic resistance. Columns are labeled using ARO ids (see Section 3 for details).
+
