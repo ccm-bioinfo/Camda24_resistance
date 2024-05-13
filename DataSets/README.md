@@ -68,6 +68,10 @@ contain the following columns:
   conferring antibiotic resistance. Columns are labeled using ARO ids (see
   **Section 3** for details).
 
+The **ResistanceCountFull.tsv** contains complete counts, even for genes with
+low confidence. On the other hand, **ResistanceCountStrict.tsv** only includes
+genes with a high confidence.
+
 > [!CAUTION]
 > Some rows have empty values in the **phenotype** and **measurement_value**
 > variables; these rows belong to the **testing dataset**.
@@ -75,18 +79,10 @@ contain the following columns:
 > Consequently, rows that do have these variables correspond to the
 > **training dataset**.
 
-The **ResistanceCountFull.tsv** contains complete counts, even for genes with
-low confidence. On the other hand, **ResistanceCountStrict.tsv** only includes
-genes with a high confidence.
-
-### 5. Pangenome count tables ([PangenomeCountMeropenem.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/7a974bcc87124a056a905a71d8b93c1dce8bc460/DataSets/PangenomeCountMeropenem.tsv.gz) and ~~PangenomeCountCiprofloxacin.tsv.gz~~)
+### 5. Pangenome count tables ([PangenomeCountMeropenem.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountMeropenem.tsv.gz) and [PangenomeCountCiprofloxacin.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountCiprofloxacin.tsv.gz))
 
 > [!IMPORTANT]  
 > These files are compressed to save space. Decompress them with `gunzip file`.
-
-> [!NOTE]  
-> **PangenomeCountCiprofloxacin.tsv.gz** hasn't been uploaded yet. However, it
-> will have the exact same structure as **PangenomeCountMeropenem.tsv.gz**.
 
 Two tables storing counts of all genes, based on a pangenome. Contains the
 following columns:
@@ -95,12 +91,13 @@ following columns:
 - **phenotype**, **measurement_value** - prediction target.
 - **everything else** - genes counts. Column labels refer to a gene family name.
 
+**PangenomeCountMeropenem.tsv.gz** stores measurements for meropenem, and
+**PangenomeCountCiprofloxacin.tsv.gz** for ciprofloxacin.
+
+
 > [!CAUTION]
 > Some rows have empty values in the **phenotype** and **measurement_value**
 > variables; these rows belong to the **testing dataset**.
 > 
 > Consequently, rows that do have these variables correspond to the
 > **training dataset**.
-
-**PangenomeCountMeropenem.tsv.gz** stores measurements for meropenem, and
-**PangenomeCountCiprofloxacin.tsv.gz** for ciprofloxacin.
