@@ -46,8 +46,7 @@ def main():
 
     # Simplify index column
     matrix.index = (
-        matrix.index.str.split("_", n=2).str.get(2)
-        .str.removesuffix(".1").str.removesuffix(".2")
+        matrix.index.str.removesuffix(".1").str.removesuffix(".2")
     )
     matrix.index.name = "accession"
 
