@@ -54,32 +54,7 @@ identify genes conferring antibiotic resistance from
   just like with previous columns, a comma-separated list of mechanisms is
   written for them.
 
-### 4. Antibiotic resistance count tables ([ResistanceCountFull.tsv](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/394c7fc8de1a265fe4911ad1335e1691efbb5637/DataSets/ResistanceCountFull.tsv) and [ResistanceCountStrict.tsv](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/394c7fc8de1a265fe4911ad1335e1691efbb5637/DataSets/ResistanceCountStrict.tsv))
-
-Two tables storing counts of genes conferring antibiotic resistance. They
-contain the following columns:
-
-- **accession**, **genus**, **species**, **antibiotic** - sample metadata.
-- **phenotype** - the first prediction target. Can have one of two values:
-  `Resistant` or `Susceptible`.
-- **measurement_value** - the second prediction target. Stores positive numeric
-  values.
-- **all columns starting with 300...** - feature data. Contains counts of genes
-  conferring antibiotic resistance. Columns are labeled using ARO ids (see
-  **Section 3** for details).
-
-The **ResistanceCountFull.tsv** contains complete counts, even for genes with
-low confidence. On the other hand, **ResistanceCountStrict.tsv** only includes
-genes with a high confidence.
-
-> [!CAUTION]
-> Some rows have empty values in the **phenotype** and **measurement_value**
-> variables; these rows belong to the **testing dataset**.
-> 
-> Consequently, rows that do have these variables correspond to the
-> **training dataset**.
-
-### 5. Pangenome count tables ([PangenomeCountMeropenem.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountMeropenem.tsv.gz) and [PangenomeCountCiprofloxacin.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountCiprofloxacin.tsv.gz))
+### 4. Pangenome count tables ([PangenomeCountMeropenem.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountMeropenem.tsv.gz) and [PangenomeCountCiprofloxacin.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountCiprofloxacin.tsv.gz))
 
 > [!IMPORTANT]  
 > These files are compressed to save space. Decompress them with `gunzip file`.
@@ -102,7 +77,7 @@ following columns:
 > Consequently, rows that do have these variables correspond to the
 > **training dataset**.
 
-### 6. AMR gene count table (AmrGeneCounts.tsv.zip)
+### 5. AMR gene count table (AmrGeneCounts.tsv.zip)
 > [!IMPORTANT]
 > This file is compressed to save space. Decompress it with unzip AmrGeneCounts.tsv.zip.
 
