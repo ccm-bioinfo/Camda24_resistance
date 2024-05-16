@@ -79,10 +79,10 @@ following columns:
 
 ### 5. AMR gene count table (AmrGeneCounts.tsv.zip)
 > [!IMPORTANT]
-> This file is compressed to save space. Decompress it with unzip AmrGeneCounts.tsv.zip.
+> This file is compressed to save space. Decompress it with unzip AmrCount.zip.
 
 Table containing counts of AMR genes for different bacterial isolates. Includes sample metadata (accession number, genus, species, phenotype, antibiotic, and measurement value) and counts of AMR genes labeled with ARO ids. 
-The file has 6310 rows and 4759 columns.
+The file has 7581 rows and 4780 columns. It contains 96.7% of training data and 100% of test data.
 
 The table contains the following columns:
 - **accession, genus, species** - sample metadata.
