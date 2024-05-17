@@ -5,7 +5,7 @@
 > commas, as separators. Some files are compressed (e.g. have `.gz` extension)
 > to save space.
 
-### 1. Training metadata dataset ([TrainingDataset.csv](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/aca2b4bef8c642f7ccd5adb63e7f054feb67783a/DataSets/TrainingDataset.csv))
+### 1. Training metadata dataset ([TrainingDataset.csv](https://github.com/ccm-bioinfo/Camda24_resistance/raw/main/DataSets/TrainingDataset.csv))
 
 This dataset contains 5,952 isolates with both WGS data and phenotypic data available. There are 8 species and for each one, the chosen antibiotic is either meropenem (as a representative of the carbapenem class) or ciprofloxacin (as a representative of the fluoroquinolone class). The chosen antibiotics are consistent between species and are based on the WHO's Priority Pathogens List (see Tacconelli et al, 2017 - DOI 10.1016/S1473-3099(17)30753-3). The columns in the dataset are as follows:
 
@@ -27,12 +27,12 @@ This dataset contains 5,952 isolates with both WGS data and phenotypic data avai
     - **isolation_source**, **isolation_country** - when specified, this provides information on where the isolate was taken from in the patient and where the patient comes from 
     - **collection_date** - when specified, this provides information on when the isolate was collected
 
-### 2. Testing metadata dataset ([TestingDataset.csv](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/d105fa8d90f8b3c397958d09d1fa615597883459/DataSets/TestingDataset.csv))
+### 2. Testing metadata dataset ([TestingDataset.csv](https://github.com/ccm-bioinfo/Camda24_resistance/raw/main/DataSets/TestingDataset.csv))
 
 Metadata for the testing dataset. Includes the following columns: **genus**,
 **species**, **accession**, **antibiotic** and **collection_date**.
 
-### 3. Resistance categories metadata ([ResistanceCategories.tsv](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/d105fa8d90f8b3c397958d09d1fa615597883459/DataSets/ResistanceCategories.tsv))
+### 3. Resistance categories metadata ([ResistanceCategories.tsv](https://github.com/ccm-bioinfo/Camda24_resistance/raw/main/DataSets/ResistanceCategories.tsv))
 
 Includes extra information regarding the ARO ids, i.e., unique numbers that
 identify genes conferring antibiotic resistance from
@@ -54,7 +54,7 @@ identify genes conferring antibiotic resistance from
   just like with previous columns, a comma-separated list of mechanisms is
   written for them.
 
-### 4. Pangenome count tables ([PangenomeCountMeropenem.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountMeropenem.tsv.gz) and [PangenomeCountCiprofloxacin.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/77dd0423caff249150a145476d99c0a3e54726bf/DataSets/PangenomeCountCiprofloxacin.tsv.gz))
+### 4. Pangenome count tables ([PangenomeCountMeropenem.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/main/DataSets/PangenomeCountMeropenem.tsv.gz) and [PangenomeCountCiprofloxacin.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/main/DataSets/PangenomeCountCiprofloxacin.tsv.gz))
 
 > [!IMPORTANT]  
 > These files are compressed to save space. Decompress them with `gunzip file`.
@@ -77,7 +77,7 @@ following columns:
 > Consequently, rows that do have these variables correspond to the
 > **training dataset**.
 
-### 5. AMR gene count table (AmrGeneCounts.tsv.zip)
+### 5. AMR gene count table ([AmrCount.zip](https://github.com/ccm-bioinfo/Camda24_resistance/raw/main/DataSets/AmrCount.zip))
 > [!IMPORTANT]
 > This file is compressed to save space. Decompress it with unzip AmrCount.zip.
 
