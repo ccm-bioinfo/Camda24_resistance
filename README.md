@@ -27,4 +27,4 @@ Team:
 
 Funding:
 
-- CF2019 217392 “Cerrando brechas y extendiendo puentes en Geometría y Topología”
+- Proyecto CONAHCYT Ciencia de Frontera CF2019 217392 “Cerrando brechas y extendiendo puentes en Geometría y Topología”
