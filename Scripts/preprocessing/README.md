@@ -48,4 +48,11 @@ options:
 Example usage: `./pangenome-count.py -a meropenem matrix.csv > output.tsv`
 
 
-### Game Theoretic Dynamic Weighting Feature Evaluation  
+### Game Theoretic Dynamic Weighting Feature Evaluation 
+[!CAUTION]
+> The file path must be typed directly
+> The final output is a clasification report
+> The best choice of features based in a game theory criteria is named `selected_df`
+
+positional arguments:
+- `file` - ResistanceJoinedStrictBiofiltered.tsv
