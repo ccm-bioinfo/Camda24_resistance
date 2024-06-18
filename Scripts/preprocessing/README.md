@@ -46,3 +46,6 @@ options:
   type of antibiotic
 
 Example usage: `./pangenome-count.py -a meropenem matrix.csv > output.tsv`
+
+
+### Game Theoretic Dynamic Weighting Feature Evaluation  
