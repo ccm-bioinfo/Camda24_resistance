@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jun 14 10:40:42 2024
 
-@author: Alejandro
-"""
 
 # -*- coding: utf-8 -*-
 """
