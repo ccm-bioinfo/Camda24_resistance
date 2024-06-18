@@ -49,6 +49,8 @@ Example usage: `./pangenome-count.py -a meropenem matrix.csv > output.tsv`
 
 
 ### Game Theoretic Dynamic Weighting Feature Evaluation 
+usage: `GTDWFE.py`
+
 > [!CAUTION]
 > -The file path must be typed directly
 > -The final output is a clasification report
