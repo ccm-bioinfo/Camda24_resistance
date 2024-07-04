@@ -1,0 +1,14 @@
+umap-learn
+datashader
+numpy
+numba
+bokeh
+holoviews[recommended]
+seaborn
+dask[dataframe]
+polars
+scikit-learn
+contextily
+geopandas
+matplotlib
+plotly
