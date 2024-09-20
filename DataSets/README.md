@@ -5,7 +5,7 @@
 > commas, as separators. Some files are compressed (e.g. have `.gz` or `bz2`
 > extension) to save space.
 
-### 1. Training metadata dataset ([TrainingDataset.csv](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/TrainingDataset.csv))
+### 1. Training metadata dataset ([TrainingDatasetFixed.csv](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/TrainingDatasetFixed.csv))
 
 This dataset contains 5,952 isolates with both WGS data and phenotypic data available. There are 8 species and for each one, the chosen antibiotic is either meropenem (as a representative of the carbapenem class) or ciprofloxacin (as a representative of the fluoroquinolone class). The chosen antibiotics are consistent between species and are based on the WHO's Priority Pathogens List (see Tacconelli et al, 2017 - DOI 10.1016/S1473-3099(17)30753-3). The columns in the dataset are as follows:
 
@@ -83,54 +83,32 @@ And the other two tables store data of specific bacteria:
 > Consequently, rows that do have these variables correspond to the
 > **training dataset**.
 
-### 5. Resistance gene count tables ([ResistanceGeneCountLoose.tsv.gz](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/ResistanceGeneCountLoose.tsv.gz) and [ResistanceGeneCountStrict.tsv.gz](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/ResistanceGeneCountStrict.tsv.gz))
+### 5. Resistance tables ([ResistanceCiprofloxacinLoose.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/refs/heads/main/DataSets/ResistanceCiprofloxacinLoose.tsv.gz), [ResistanceCiprofloxacinStrict.tsv.gz](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/ResistanceCiprofloxacinStrict.tsv.gz), [ResistanceMeropenemLoose.tsv.gz](https://github.com/ccm-bioinfo/Camda24_resistance/raw/refs/heads/main/DataSets/ResistanceMeropenemLoose.tsv.gz), and [ResistanceMeropenemStrict.tsv.gz](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/ResistanceMeropenemStrict.tsv.gz))
 
 > [!IMPORTANT]
 > These files are compressed to save space. Decompress with `gunzip file`.
 
-Two tables containing counts of AMR genes for different bacterial isolates.
-Includes sample metadata (accession number, genus, species, phenotype,
-antibiotic, and measurement value) and counts of AMR genes labeled with ARO ids. 
+Tables containing counts of AMR genes and SNPs for different bacterial isolates.
+Includes sample metadata (accession number, genus, species, phenotype and MIC)
+and counts of AMR genes and SNPs labeled with ARO ids. 
 
-Both tables contain the following columns:
+All tables contain the following columns:
 
-- **accession, genus, species, antibiotic** - sample metadata.
+- **accession, genus, species** - sample metadata.
 - **phenotype** - the first prediction target. Can have one of two values: Resistant or Susceptible.
-- **measurement_value** - the second prediction target. Stores positive numeric values representing the MIC (minimum inhibitory concentration).
-- **columns starting with 300...** - feature data. Contains counts of genes conferring antibiotic resistance. Columns are labeled using ARO ids (see Section 3 for details).
+- **mic** - the second prediction target. Stores positive numeric values representing the MIC (minimum inhibitory concentration).
+- **columns starting with 300...** - feature data. Contains counts of genes and SNPs conferring antibiotic resistance. Columns are labeled using ARO ids (see Section 3 for details). SNP features are labeled with the ARO id, followed by a dash (`-`) and the amino acid substitution.
 
-The difference between the two tables has to do with the confidence of the gene
-presence. The **ResistanceGeneCountStrict.tsv.gz** file contains genes with a
-high confidence, whereas **ResistanceGeneCountLoose.tsv.gz** includes genes with
-low and high confidence, and is thus a superset of the first table.
+Files containing the word **Meropenem** are samples tested against meropenem,
+and those with the word **Ciprofloxacin** contain samples tested against
+ciprofloxacin.
+
+Tables ending with **Strict.tsv.gz** contain genes and SNPs with a high
+confidence, whereas those ending with **Loose.tsv.gz** include genes and SNPs
+with low and high confidence, and are thus a supersets of the former.
 
 > [!CAUTION]
-> Some rows have empty values in the **phenotype** and **measurement_value**
-> variables; these rows belong to the **testing dataset**.
-> 
-> Consequently, rows that do have these variables correspond to the
-> **training dataset**.
-
-### 6. Resistance SNP count tables ([ResistanceSNPCountLoose.tsv.gz](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/ResistanceSNPCountLoose.tsv.gz) and [ResistanceSNPCountStrict.tsv.gz](https://raw.githubusercontent.com/ccm-bioinfo/Camda24_resistance/main/DataSets/ResistanceSNPCountStrict.tsv.gz))
-
-> [!IMPORTANT]
-> These files are compressed to save space. Decompress with `gunzip file`.
-
-Two tables containing counts of AMR SNPs for different bacterial isolates.
-Both tables contain the following columns:
-
-- **accession, genus, species, antibiotic** - sample metadata.
-- **phenotype** - the first prediction target. Can have one of two values: Resistant or Susceptible.
-- **measurement_value** - the second prediction target. Stores positive numeric values representing the MIC (minimum inhibitory concentration).
-- **columns starting with 300...** - feature data. Contains counts of SNPs conferring antibiotic resistance. Columns are labeled using ARO ids (see Section 3 for details) followed by the amino acid substitution.
-
-The difference between the two tables has to do with the confidence of the gene
-presence. The **ResistanceSNPCountStrict.tsv.gz** file contains genes with a
-high confidence, whereas **ResistanceSNPCountLoose.tsv.gz** includes genes with
-low and high confidence, and is thus a superset of the first table.
-
-> [!CAUTION]
-> Some rows have empty values in the **phenotype** and **measurement_value**
+> Some rows have empty values in the **phenotype** and **mic**
 > variables; these rows belong to the **testing dataset**.
 > 
 > Consequently, rows that do have these variables correspond to the
