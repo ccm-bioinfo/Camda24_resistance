@@ -30,6 +30,7 @@ Consideraremos un conjunto de datos $(\mathbf{X},\mathbf{y})$, donde $\mathbf{X}
 </figure>
 
 3. Predicción de la categoría ordinal en la fase de prueba (para datos nuevos) según el siguiente esquema (Figura 3):
+
 $$
 \begin{align}
 P(y_1) & = 1-P(\text{Target}>y_1) \nonumber \\
@@ -37,6 +38,7 @@ P(y_i) & = P(\text{Target}>y_{i-1})\times(1-P(\text{Target}>y_i)), 1<i<K  \nonum
 P(y_K) & = 1-P(\text{Target}>y_{K-1}) \nonumber
 \end{align}
 $$
+
 <figure>
 <img src="mic_ordinal3.png" width="80%">
 <figcaption> Figura 3. Predicción de la categoria ordinal de un dato nuevo basado en múltiples problemas binarios. </figcaption>
