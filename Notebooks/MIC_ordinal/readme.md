@@ -39,6 +39,8 @@ P(y_K) & = 1-P(\text{Target}>y_{K-1}) \nonumber
 \end{align}
 $$
 
+
+
 <figure>
 <img src="mic_ordinal3.png" width="80%">
 <figcaption> Figura 3. Predicción de la categoria ordinal de un dato nuevo basado en múltiples problemas binarios. </figcaption>
