@@ -1,0 +1,28 @@
+{
+    "ignorePaths": [
+        "**/site-packages/**/*", // Ignore Python third-party packages
+        "**/venv/**/*", // Ignore virtual environments
+        "**/dist/**/*", // Ignore build directories
+        "**/build/**/*"
+    ],
+    "words": [
+        "catboost",
+        "hstack",
+        "ipython",
+        "isin",
+        "matplotlib",
+        "mlflow",
+        "multiclass",
+        "nodefaults",
+        "numpy",
+        "nunique",
+        "onehot",
+        "optuna",
+        "pandas",
+        "pyproject",
+        "pytest",
+        "scikit-learn",
+        "seaborn",
+        "xgboost"
+    ]
+}

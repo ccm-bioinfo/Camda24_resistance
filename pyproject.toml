@@ -1,0 +1,42 @@
+[tool.ruff]
+# Enable or disable certain checks
+select = [
+    "E",
+    "F",
+    "W",
+    "C90",
+] # E (errors), F (fatal), W (warnings), C90 (complexity checks)
+ignore = [] # Ignore specific rules
+max-line-length = 88 # Set the maximum line length (use Black's default)
+fix = true # Automatically fix issues (used with --fix flag)
+extend-select = ["I"] #(extend the set of enabled checks)
+
+# Optional: Add a path to a configuration file if needed
+# config = "ruff-config.toml"  # Uncomment if using an external config file
+
+# Configure error level for checks
+target-version = "py310" # Set the Python version to target (e.g., py310 for Python 3.10)
+
+# Optional: Disable specific checks or add additional options
+exclude = [
+    "**/tests/*",      # Ignore files in the tests directory
+    "**/migrations/*", # Ignore files in migrations
+    "*.pyi",           # Ignore stub files
+]
+
+[tool.coverage.run]
+branch = true
+omit = ["tests/*", "setup.py", "__init__.py"]
+
+[tool.mypy]
+ignore_missing_imports = true
+strict = true
+files = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=<project-name> --cov-report html"
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"

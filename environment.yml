@@ -1,0 +1,19 @@
+name: .conda
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+  - scikit-learn
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - optuna
+  - mlflow
+  - xgboost
+  - catboost
+  - ipython
+  - jupyter
+  - ruff
+  - pytest
