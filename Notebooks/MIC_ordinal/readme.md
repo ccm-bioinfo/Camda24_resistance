@@ -30,17 +30,13 @@ Consideraremos un conjunto de datos $(\mathbf{X},\mathbf{y})$, donde $\mathbf{X}
 </figure>
 
 3. Predicción de la categoría ordinal en la fase de prueba (para datos nuevos) según el siguiente esquema (Figura 3):
-
 $$
-  \begin{align}
-  P(y_1) & = 1-P(\text{Target}>y_1) \nonumber \\
-  P(y_i) & = P(\text{Target}>y_{i-1})\times(1-P(\text{Target}>y_i)), 1<i<K  \nonumber \\
-  P(y_K) & = 1-P(\text{Target}>y_{K-1}) \nonumber
-  \end{align}
+\begin{align}
+P(y_1) & = 1-P(\text{Target}>y_1) \nonumber \\
+P(y_i) & = P(\text{Target}>y_{i-1})\times(1-P(\text{Target}>y_i)), 1<i<K  \nonumber \\
+P(y_K) & = 1-P(\text{Target}>y_{K-1}) \nonumber
+\end{align}
 $$
-
-
-
 <figure>
 <img src="mic_ordinal3.png" width="80%">
 <figcaption> Figura 3. Predicción de la categoria ordinal de un dato nuevo basado en múltiples problemas binarios. </figcaption>
@@ -52,7 +48,7 @@ Este esquema permite el uso de diferentes métodos de clasificación en el paso 
 
 En éste método, se realiza una codificación particular de la variable de respuesta para estimar una distribución de probabilidad que refleje la naturaleza ordinal del vector de respuesta $\mathbf{y}$.
 
-En un problema de clasificación estándar, una NN se entrena para obtener una distribución de probabilidad $P(y_i=k| \mathbf{x}_i)$, para $k=1,\ldots, K$, $i=1,\ldots,n$, sobre los valores codificados de $y_i$ mediante un vector *one-hot*, es decir, si $y_i=k$, el encoding correspondiente es $t_i=(0,\ldots,0,1_k,0,\ldots,0)$ y la salida de la NN es $O_i=(o_1,o_2,\ldots,o_k,\ldots,o_K)$, donde $o_k$ debe ser muy cercano a 1 y las demás entradas deben ser muy cercanas a 0, con la restricción $\sum_{j=1}^K o_j=1$. 
+En un problema de clasificación estándar, una NN se entrena para obtener una distribución de probabilidad $P(y_i=k|\mathbf{x}_i)$, para $k=1,\ldots, K$, $i=1,\ldots,n$, sobre los valores codificados de $y_i$ mediante un vector *one-hot*, es decir, si $y_i=k$, el encoding correspondiente es $t_i=(0,\ldots,0,1_k,0,\ldots,0)$ y la salida de la NN es $O_i=(o_1,o_2,\ldots,o_k,\ldots,o_K)$, donde $o_k$ debe ser muy cercano a 1 y las demás entradas deben ser muy cercanas a 0, con la restricción $\sum_{j=1}^K o_j=1$. 
 En la propuesta de Cheng et al.<a href="#note2" id="note2ref"><sup>2</sup></a>, el orden en las categorías se impone considerando que, si una observación pertenece a la categoría $k$, también se le asignan las $1,\ldots k-1$ categorías inferiores. Entonces, si $y_i=k$, el encoding correspondiente es $t_i=(1,\ldots,1,1_k,0,\ldots,0)$ y el objetivo de la NN es obtener un vector de salida $O_i=(o_1,o_2,\ldots,o_k,\ldots,o_K)$, donde $o_j$ $(j \leq k)$ debe ser muy cercano a 1 y $o_j$ $(j > k)$ deben ser muy cercanas a 0, y la restricción se modifica como $\sum_{j=1}^K o_j=k$, es decir, la estimación del número de categorías a las cuáles pertenece $\mathbf{x}_i$.
 
 A diferencia de las NN estándar, la capa de salida de las NN ordinal no usan la transformación softmax en la capa de salida, sino solo la función sigmoide $\frac{1}{1+e^{-z_j}}$, donde $z_j$ es el input que procesa el nodo de salida $O_j$, que es usado para estimar la probabilidad $o_j=P(y_i=j|\mathbf{x}_i)$, de forma independiente, sin la normalización usada en las NN estándar. La Figura 4 ilustra las diferencias entre ambos modelos.
@@ -119,17 +115,17 @@ FALTA
 <tbody>
   <tr>
    <td style="text-align:left;"> MLR (baseline) </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
+   <td style="text-align:right;"> 3.204 +/- 0.290 </td>
+   <td style="text-align:right;"> 6.583 +/- 2.957 </td>
    <td style="text-align:right;"> 3.223 </td>
    <td style="text-align:right;"> 5.222 </td>
   </tr>  
   <tr>
    <td style="text-align:left;"> DTR (baseline) </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;"> 2.940 </td>
-   <td style="text-align:right;"> 6.486 </td>
+   <td style="text-align:right;"> 2.958 +/- 0.407 </td>
+   <td style="text-align:right;"> 6.528 +/- 0.717 </td>
+   <td style="text-align:right;"> 3.228 </td>
+   <td style="text-align:right;"> 7.059 </td>
   </tr> 
   <tr>
    <td style="text-align:left;"> Ordinal-LR </td>
@@ -154,38 +150,38 @@ FALTA
   </tr> 
   <tr>
    <td style="text-align:left;"> Ordinal-NN </td>
-   <td style="text-align:right;"> 0.611 +/- 0.098 </td>
-   <td style="text-align:right;"> 1.437 +/- 0.176 </td>
-   <td style="text-align:right;"> 1.064 </td>
-   <td style="text-align:right;"> 2.063 </td>
+   <td style="text-align:right;"> <b>0.611 +/- 0.098</b> </td>
+   <td style="text-align:right;"> <b>1.437 +/- 0.176</b> </td>
+   <td style="text-align:right;"> <b>1.064</b> </td>
+   <td style="text-align:right;"> <b>2.063</b> </td>
   </tr> 
   <tr>
    <td style="text-align:left;"> LR estándar </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
+   <td style="text-align:right;"> 1.227 +/- 0.129 </td>
+   <td style="text-align:right;"> 2.394 +/- 0.182 </td>
+   <td style="text-align:right;"> 1.309 </td>
+   <td style="text-align:right;"> 2.543 </td>
   </tr> 
   <tr>
    <td style="text-align:left;"> CART estándar </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
+   <td style="text-align:right;"> 1.599 +/- 0.103 </td>
+   <td style="text-align:right;"> 2.765 +/- 0.125 </td>
+   <td style="text-align:right;"> 1.738 </td>
+   <td style="text-align:right;"> 3.011 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> RF estándar </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
+   <td style="text-align:right;"> 1.131 +/- 0.074 </td>
+   <td style="text-align:right;"> 2.294 +/- 0.105 </td>
+   <td style="text-align:right;"> 1.206 </td>
+   <td style="text-align:right;"> 2.448 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> NN estándar </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
+   <td style="text-align:right;"> 0.866 +/- 0.141 </td>
+   <td style="text-align:right;"> 2.001 +/- 0.214 </td>
+   <td style="text-align:right;"> 1.153 </td>
+   <td style="text-align:right;"> 2.406 </td>
   </tr> 
 </tbody>
 </table>

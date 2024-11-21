@@ -286,6 +286,8 @@ def search_params_ordinal(ordinal_cl, X, y, param_grid, cv=5, scoring = 'accurac
     return best_params, best_score
 
 # obtiene estadísticas del desempeño del clasificador ordinal con validación cruzada
+# RECORDATORIO PARA MI: cambiar el nombre de la función, porque realmente se puede usar con cualquier modelo, no
+# solamente el que se adapta para clasificación ordinal...
 def ordinal_clas_stat(ordinal_cl, X, y, score, rand_state = None, n_repeats=5, n_split = 5):
     # Realizar la validación cruzada repetida
     cv_scores = []
@@ -305,6 +307,42 @@ def ordinal_clas_stat2(ordinal_cl, X, y, rand_state = None, n_repeats=5, n_split
     rmse_cv_scores = []
     for _ in range(n_repeats):
         cv = StratifiedKFold(n_splits=n_split, shuffle=True, random_state=rand_state)
+        scs = ('neg_mean_absolute_error', 'neg_root_mean_squared_error') # MAE y RMSE
+        scores = cross_validate(ordinal_cl, X, y, cv=cv, scoring=scs)
+        mae_cv_scores.extend(-scores['test_neg_mean_absolute_error'])
+        rmse_cv_scores.extend(-scores['test_neg_root_mean_squared_error'])
+
+    # Calcular media y desviación estándar de los puntajes
+    mean_mae = np.mean(mae_cv_scores)
+    mean_rmse = np.mean(rmse_cv_scores)
+    std_mae = np.std(mae_cv_scores)
+    std_rmse = np.std(rmse_cv_scores)
+    return mean_mae, mean_rmse, std_mae, std_rmse
+    
+def std_cv_scores(model, X, y, rand_state = None, n_repeats=5, n_split = 5):
+    # Realizar la validación cruzada repetida
+    mae_cv_scores = []
+    rmse_cv_scores = []
+    for _ in range(n_repeats):
+        cv = KFold(n_splits=n_split, shuffle=True, random_state=rand_state)
+        scs = ('neg_mean_absolute_error', 'neg_root_mean_squared_error') # MAE y RMSE
+        scores = cross_validate(model, X, y, cv=cv, scoring=scs)
+        mae_cv_scores.extend(-scores['test_neg_mean_absolute_error'])
+        rmse_cv_scores.extend(-scores['test_neg_root_mean_squared_error'])
+
+    # Calcular media y desviación estándar de los puntajes
+    mean_mae = np.mean(mae_cv_scores)
+    mean_rmse = np.mean(rmse_cv_scores)
+    std_mae = np.std(mae_cv_scores)
+    std_rmse = np.std(rmse_cv_scores)
+    return mean_mae, mean_rmse, std_mae, std_rmse
+
+def std_cv_scores(model, X, y, rand_state = None, n_repeats=5, n_split = 5):
+    # Realizar la validación cruzada repetida
+    mae_cv_scores = []
+    rmse_cv_scores = []
+    for _ in range(n_repeats):
+        cv = KFold(n_splits=n_split, shuffle=True, random_state=rand_state)
         scs = ('neg_mean_absolute_error', 'neg_root_mean_squared_error') # MAE y RMSE
         scores = cross_validate(ordinal_cl, X, y, cv=cv, scoring=scs)
         mae_cv_scores.extend(-scores['test_neg_mean_absolute_error'])
@@ -345,6 +383,30 @@ def cross_val_metrics_nn(model, X, y, cv):
         y_val_lab = prediction2label_nn(y_val_fold)
         mae = mean_absolute_error(y_val_lab, y_pred)
         rmse = root_mean_squared_error(y_val_lab, y_pred)
+        mae_scores.append(mae)
+        rmse_scores.append(rmse)
+        # Calcular los valores promedio y desviación estándar
+        mae_mean = np.mean(mae_scores)
+        mae_std = np.std(mae_scores)
+        rmse_mean = np.mean(rmse_scores)
+        rmse_std = np.std(rmse_scores)
+
+    return mae_mean, mae_std, rmse_mean, rmse_std
+
+def cross_val_metrics_nn_standard(model, X, y, cv):
+    kf = KFold(n_splits=cv)
+    mae_scores = []
+    rmse_scores = []
+
+    for train_index, val_index in kf.split(X):
+        X_train_fold, X_val_fold = X[train_index], X[val_index]
+        y_train_fold, y_val_fold = y[train_index], y[val_index]
+
+        model.fit(X_train_fold, y_train_fold, epochs=50, batch_size=16, verbose=0)
+
+        y_pred = np.argmax(model.predict(X_val_fold), axis=-1)
+        mae = mean_absolute_error(y_val_fold, y_pred)
+        rmse = root_mean_squared_error(y_val_fold, y_pred)
         mae_scores.append(mae)
         rmse_scores.append(rmse)
         # Calcular los valores promedio y desviación estándar
