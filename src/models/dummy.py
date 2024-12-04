@@ -1,37 +1,30 @@
-import numpy as np
-from sklearn.dummy import DummyClassifier, DummyRegressor
-from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
+from .dual import DualTaskMixin
+from sklearn.dummy import DummyRegressor, DummyClassifier
 
-class DummyModel(BaseEstimator, RegressorMixin, ClassifierMixin):
-    def __init__(self):
-        # Dummy Regressor and Dummy Classifier
-        self.dummy_regressor = DummyRegressor(strategy='median')
-        self.dummy_classifier = DummyClassifier(strategy='most_frequent')
-
-    def fit(self, X, y):
-        # Separate target into regression and classification tasks
-        y_reg = y[:, :-1]  # Assuming last column is binary class for classification
-        y_clf = y[:, -1]  # Binary class for classification
-
-        # Fit dummy regressor for regression task
-        self.dummy_regressor.fit(X, y_reg)
-        
-        # Fit dummy classifier for classification task
-        self.dummy_classifier.fit(X, y_clf)
-        
-        return self
-
-    def predict(self, X):
-        # Predict using dummy regressor for regression output
-        reg_pred = self.dummy_regressor.predict(X)
-        # Predict using dummy classifier for classification output
-        clf_pred = self.dummy_classifier.predict(X)
-        return np.column_stack([reg_pred, clf_pred])
+class DummyDualModel(DualTaskMixin):
+    def __init__(self, mic_hyperparams=None, phenotype_hyperparams=None, random_state=42):
+        super().__init__(mic_hyperparams, phenotype_hyperparams, random_state, 
+                        mic_estimator=DummyRegressor, phenotype_estimator=DummyClassifier)
 
 if __name__ == '__main__':
-    # Test the DummyModel
-    X = np.random.rand(10, 5)
-    y = np.random.randint(0, 2, (10, 2))
-    model = DummyModel()
-    model.fit(X, y)
-    print(model.predict(X))
+    import numpy as np
+    from sklearn.model_selection import train_test_split
+
+    # Create synthetic data for regression and classification
+    X = np.random.rand(100, 5)
+    y = np.random.randint(0, 2, (100, 2))
+
+    # Split the data into training and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Instantiate and train the model
+    model = DummyDualModel(mic_hyperparams={'strategy': 'mean'}, phenotype_hyperparams={'strategy': 'most_frequent'})
+    model.fit(X_train, y_train)
+
+    # Predict with the trained model
+    regression_predictions, classification_predictions = model.predict(X_test)
+
+    # Output the results
+    print("Regression predictions:", regression_predictions[:5])
+    print("Classification predictions:", classification_predictions[:5])
+

@@ -8,16 +8,17 @@ import numpy as np
 from config import DISCRETE_LIMIT
 
 class FeaturesTransformer(BaseEstimator, TransformerMixin):
-    def __init__(self, discrete_limit=DISCRETE_LIMIT):
+    def __init__(self, discrete_limit=DISCRETE_LIMIT, category_encoder=OneHotEncoder(handle_unknown='ignore')):
         self.discrete_limit = discrete_limit
+        self.category_encoder = category_encoder
         self.transformer = None
         self.categorical_cols = None
         self.continuous_cols = None
         self.original_index = None
         self.cardinalities = None
-        self._column_transformer = ColumnTransformer(
+        self.column_transformer = ColumnTransformer(
             transformers=[
-                ('onehot_categorical', OneHotEncoder(handle_unknown='ignore'), self.categorical_cols),
+                ('category_encoder', self.category_encoder, self.categorical_cols),
                 ('pass_continuous', 'passthrough', self.continuous_cols)
             ], remainder='drop'
         )
@@ -50,11 +51,19 @@ class FeaturesTransformer(BaseEstimator, TransformerMixin):
         all_inverse = np.hstack(categorical_inverse + [continuous_inverse])
         return pd.DataFrame(all_inverse, columns=self.original_index)
 
+    def get_params(self):
+        return {
+            'discrete_limit': self.discrete_limit,
+            'category_encoder': self.category_encoder
+        }
+
+    def set_params(self, **params):
+        self.discrete_limit = params.get('discrete_limit', self.discrete_limit)
+        self.category_encoder = params.get('category_encoder', self.category_encoder)
+        return self
 
 # Example usage
 if __name__ == "__main__":
-    from sklearn.model_selection import train_test_split
-    from sklearn.pipeline import Pipeline
     # Load your data
     df = pd.DataFrame({
         'feature1': [1, 2, 3, 4, 5],

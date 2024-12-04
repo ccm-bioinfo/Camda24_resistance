@@ -3,18 +3,14 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
 
 class RandomForestModel(BaseEstimator, RegressorMixin, ClassifierMixin):
-    def __init__(self, n_estimators=100, random_state=None):
+    def __init__(self, regressor_params=None, classifier_params=None, random_state=42):
         """
         Initializes RandomForest models for regression and classification.
         """
-        self.n_estimators = n_estimators
-        self.random_state = random_state
-        self.rf_regressor = RandomForestRegressor(
-            n_estimators=n_estimators, random_state=random_state
-        )
-        self.rf_classifier = RandomForestClassifier(
-            n_estimators=n_estimators, random_state=random_state
-        )
+        regressor_params['random_state'] = random_state
+        classifier_params['random_state'] = random_state 
+        self.rf_regressor = RandomForestRegressor(regressor_params)
+        self.rf_classifier = RandomForestClassifier(classifier_params)
 
     def fit(self, X, y):
         """

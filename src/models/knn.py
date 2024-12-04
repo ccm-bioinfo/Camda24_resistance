@@ -1,57 +1,19 @@
-import numpy as np
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
-from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
+from .dual import DualTaskMixin
 
-class KNNModel(BaseEstimator, RegressorMixin, ClassifierMixin):
-    def __init__(self, n_neighbors=5):
-        """
-        Initializes KNN regressor and classifier with the specified number of neighbors.
-        """
-        self.n_neighbors = n_neighbors
-        self.knn_regressor = KNeighborsRegressor(n_neighbors=n_neighbors)
-        self.knn_classifier = KNeighborsClassifier(n_neighbors=n_neighbors)
-
-    def fit(self, X, y):
-        """
-        Fits the model with the provided data.
-
-        Args:
-            X (ndarray): Feature matrix.
-            y (ndarray): Target matrix where the last column is for classification.
-        
-        Returns:
-            self: Fitted model.
-        """
-        y_reg = y[:, :-1]  # All columns except last for regression
-        y_clf = y[:, -1]   # Last column for classification
-
-        # Fit KNN models
-        self.knn_regressor.fit(X, y_reg)
-        self.knn_classifier.fit(X, y_clf)
-        
-        return self
-
-    def predict(self, X):
-        """
-        Predicts regression and classification outputs for the given data.
-
-        Args:
-            X (ndarray): Feature matrix.
-        
-        Returns:
-            ndarray: Concatenated regression and classification predictions.
-        """
-        reg_pred = self.knn_regressor.predict(X)
-        clf_pred = self.knn_classifier.predict(X).reshape(-1, 1)
-        return np.column_stack([reg_pred, clf_pred])
+class KnnDualModel(DualTaskMixin):
+    def __init__(self, regressor_params=None, classifier_params=None, random_state=42):
+        super().__init__(regressor_params, classifier_params, random_state, 
+                        regressor_estimator=KNeighborsRegressor, classifier_estimator=KNeighborsClassifier)
 
 if __name__ == '__main__':
+    import numpy as np
     # Test the KNNModel
     X = np.random.rand(10, 5)
     y = np.hstack([
-        np.random.rand(10, 1),    # Regression target
-        np.random.randint(0, 2, (10, 1))  # Classification target
+        np.random.rand(10, 1),
+        np.random.randint(0, 2, (10, 1))
     ])
-    model = KNNModel(n_neighbors=3)
+    model = KnnDualModel(regressor_params={'n_neighbors': 3}, classifier_params={'n_neighbors': 2})
     model.fit(X, y)
     print(model.predict(X))

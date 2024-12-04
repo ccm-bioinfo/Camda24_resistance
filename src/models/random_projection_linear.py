@@ -4,7 +4,7 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
 
 class RandomProjectionModel(BaseEstimator, RegressorMixin, ClassifierMixin):
-    def __init__(self, n_components=2, projection_type='gaussian', random_state=None):
+    def __init__(self,  regressor_params=None, classifier_params=None):
         """
         Initializes random projection and models for regression and classification.
 
@@ -13,9 +13,11 @@ class RandomProjectionModel(BaseEstimator, RegressorMixin, ClassifierMixin):
             projection_type (str): 'gaussian' for GaussianRandomProjection or 'sparse' for SparseRandomProjection.
             random_state (int): Random seed for reproducibility.
         """
-        self.n_components = n_components
-        self.projection_type = projection_type
-        self.random_state = random_state
+        self.regressor_n_components = regressor_params['n_components'] or  5
+        self.regressor_projection_type = regressor_params['projection_type'] or 'gaussian' 
+        self.classifier_n_components = classifier_params['n_components'] or 2
+        self.classifier_projection_type = classifier_params['projection_type'] or 'gaussian'
+        self.random_state = classifier_params['random_state'] or 42
 
         if projection_type == 'gaussian':
             self.random_projection = GaussianRandomProjection(
@@ -29,7 +31,7 @@ class RandomProjectionModel(BaseEstimator, RegressorMixin, ClassifierMixin):
             raise ValueError("Invalid projection_type. Use 'gaussian' or 'sparse'.")
 
         self.linear_regressor = LinearRegression()
-        self.logistic_classifier = LogisticRegression()
+        self.logistic_classifier = LogisticRegression(penalty='none')
 
     def fit(self, X, y):
         """

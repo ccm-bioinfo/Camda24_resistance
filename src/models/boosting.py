@@ -1,18 +1,11 @@
 from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
-from sklearn.base import BaseEstimator
+from .dual import DualTaskMixin
 
-class GradientBoostingDual(BaseEstimator):
-    def __init__(self, regressor_params=None, classifier_params=None):
-        self.regressor = GradientBoostingRegressor(**(regressor_params or {}))
-        self.classifier = GradientBoostingClassifier(**(classifier_params or {}))
+class GradientBoostingDualModel(DualTaskMixin):
+    def __init__(self, regressor_params=None, classifier_params=None, random_state=42):
+        super().__init__(regressor_params, classifier_params, random_state, 
+                        regressor_estimator=GradientBoostingRegressor, classifier_estimator=GradientBoostingClassifier)
     
-    def fit(self, X, y_regressor, y_classifier):
-        self.regressor.fit(X, y_regressor)
-        self.classifier.fit(X, y_classifier)
-        return self
-    
-    def predict(self, X):
-        return self.regressor.predict(X), self.classifier.predict(X)
     
 
 if __name__ == "__main__":
@@ -29,7 +22,7 @@ if __name__ == "__main__":
     )
 
     # Instantiate and train the dual model
-    model = GradientBoostingDual()
+    model = GradientBoostingDualModel()
     model.fit(X_train, y_train_regressor, y_train_classifier)
 
     # Predict with the model
