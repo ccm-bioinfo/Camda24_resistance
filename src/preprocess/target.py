@@ -11,35 +11,39 @@ class TargetsTransformer(BaseEstimator, TransformerMixin):
         self.apply_multiclass_encoding = apply_multiclass_encoding
         self.apply_log2 = apply_log2
         self.apply_round_to_int = apply_round_to_int
-        self.mic_pipeline_steps = [('reshape', ReshapeTransformer)]
-        self.phenotype_pipeline_steps = [('reshape', ReshapeTransformer)]
         self.mic_pipeline = None
         self.phenotype_pipeline = None
 
-    def _add_transformers_to_mic_pipeline(self):
+    def _make_mic_pipeline(self):
+        self.mic_pipeline_steps = [('reshape', ReshapeTransformer)]
         if self.apply_log2:
             self.mic_pipeline_steps.append(('log2', Log2Transformer))
         if self.apply_round_to_int:
             self.mic_pipeline_steps.append(('round', RoundTransformer))
         if self.apply_multiclass_encoding:
             self.mic_pipeline_steps.append(('onehot', OneHotEncoder(sparse=False)))
-
-    def fit(self, X, y):
-        self._add_transformers_to_mic_pipeline()
         self.mic_pipeline = Pipeline(self.mic_pipeline_steps)
+
+
+    def _make_phenotype_pipeline(self):
         self.phenotype_pipeline = Pipeline([
             ('label_encoding', LabelEncoder()),
             ('reshape', ReshapeTransformer)
         ])
+
+
+    def fit(self, y):
+        self._make_mic_pipeline()
+        self._make_phenotype_pipeline()
         self.mic_pipeline.fit(y["mic"])
         self.phenotype_pipeline.fit(y["phenotype"])
         return self
 
-    def transform(self, X):
-        print("Not a canonical transformer. Use fit_transform instead.")
+    def transform(self, y):
+        return (self.mic_pipeline.transform(y), self.phenotype_pipeline.transform(y))
+        
     
-    def fit_transform(self, X, y):
-        self.fit(y)
+    def fit_transform(self, y):
         y_mic_transformed = self.mic_pipeline.transform(y["mic"])
         print(f"Mic targets transformed from shape: {y['mic'].shape} to shape: {y_mic_transformed.shape}")
         y_phenotype_transformed = self.phenotype_pipeline.transform(y["phenotype"])
@@ -69,18 +73,6 @@ class TargetsTransformer(BaseEstimator, TransformerMixin):
         print("Confusion Matrix for Phenotype:")
         print(cm)
 
-    def get_params(self):
-        return {
-            "apply_multiclass_encoding": self.apply_multiclass_encoding,
-            "apply_log2": self.apply_log2,
-            "apply_round_to_int": self.apply_round_to_int
-        }
-
-    def set_params(self, **params):
-        self.apply_multiclass_encoding = params.get("apply_multiclass_encoding", self.apply_multiclass_encoding)
-        self.apply_log2 = params.get("apply_log2", self.apply_log2)
-        self.apply_round_to_int = params.get("apply_round_to_int", self.apply_round_to_int)
-        return self
 
 # Example usage
 if __name__ == "__main__":

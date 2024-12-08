@@ -5,6 +5,15 @@ class DummyDualModel(DualTaskMixin):
     def __init__(self, mic_hyperparams=None, phenotype_hyperparams=None, random_state=42):
         super().__init__(mic_hyperparams, phenotype_hyperparams, random_state, 
                         mic_estimator=DummyRegressor, phenotype_estimator=DummyClassifier)
+        
+    def fit(self, X, y):
+        # Set mic estimator
+        mic_estimator_type = self.mic_hyperparams.get('estimator', 'regressor')
+        self.mic_estimator = DummyRegressor if mic_estimator_type == 'regressor' else DummyClassifier
+        # Set phenotype estimator
+        phenotype_estimator_type = self.phenotype_hyperparams.get('estimator', 'classifier')
+        self.phenotype_estimator = DummyClassifier if phenotype_estimator_type == 'classifier' else DummyRegressor
+        return super().fit(X, y)
 
 if __name__ == '__main__':
     import numpy as np

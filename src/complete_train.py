@@ -1,5 +1,5 @@
-from preprocess.feature import FeaturePreprocessor
-from preprocess.target import TargetPreprocessor
+from preprocess.feature import FeaturesTransformer
+from preprocess.target import TargetTransformer
 from .oversample import Oversampler
 
 class CompleteTrainer:
@@ -7,8 +7,8 @@ class CompleteTrainer:
         self.df = df
         self.model = model
         self.oversample_target_index = oversample_target_index
-        self.x_preprocessor = FeaturePreprocessor()
-        self.y_preprocessor = TargetPreprocessor()
+        self.x_transformer = FeaturesTransformer()
+        self.y_transformer= TargetTransformer()
 
     def _extract_xy(self):
         self.df = self.df.dropna()
@@ -24,8 +24,8 @@ class CompleteTrainer:
         return ros.fit_resample(self.x_transformed, self.y_transformed[self.oversample_target_index])
 
     def _preprocess(self, x, y = None):
-        x_transformed = self.x_preprocessor.fit_transform(x)
-        y_transformed = self.y_preprocessor.fit_transform(y) if y is not None else None
+        x_transformed = self.x_transformer.fit_transform(x)
+        y_transformed = self.y_transformer.fit_transform(y) if y is not None else None
         return x_transformed, y_transformed
 
     def _get_training_data(self, x_transformed, y_transformed):
@@ -34,8 +34,8 @@ class CompleteTrainer:
     def fit(self):
         x, y = self._extract_xy(self.df)
         x_transformed, y_transformed = self._preprocess(x, y)
-        x_training, y_training = self._get_training_data(x_transformed, y_transformed)
-        self.model.fit(x_training, y_training)
+        x_train, y_train= self._get_training_data(x_transformed, y_transformed)
+        self.model.fit(x_train, y_train)
         return self
 
     def train(self):
@@ -53,13 +53,6 @@ class CompleteTrainer:
         y_estimate = self.target_preprocessor.inverse_transform(y_transformed_estimate)
         return y_estimate
     
-    def get_params(self):
-        return self.model.get_params()
-    
-    def set_params(self, **params):
-        self.model.set_params(**params)
-        return self
-
 
 if __name__ == '__main__':
     from models.dummy import DummyDualModel
