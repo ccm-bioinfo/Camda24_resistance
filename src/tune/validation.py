@@ -1,7 +1,7 @@
 from sklearn.model_selection import KFold, LeaveOneOut, LeavePOut, StratifiedKFold, RepeatedKFold, GroupKFold
 from sklearn.model_selection import train_test_split
 
-from .evaluate import PredictionEvaluator
+from ..score.evaluate import PredictionEvaluator
 
 class CrossValidation:
     def __init__(self, model, X, y, random_state=42, n_splits=5, leave_out_p=10, mic_n_classes = None, test_size=0.2, groups=None):

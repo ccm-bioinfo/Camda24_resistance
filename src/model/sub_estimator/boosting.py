@@ -1,5 +1,5 @@
 from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
-from .dual import DualTaskMixin
+from .meta_estimator.dual import DualTaskMixin
 
 class GradientBoostingDualModel(DualTaskMixin):
     def __init__(self, mic_hyperparams=None, phenotype_hyperparams=None, random_state=42):

@@ -1,5 +1,5 @@
 from sklearn.linear_model import LinearRegression, LogisticRegression
-from .dual import DualTaskMixin
+from .meta_estimator.dual import DualTaskMixin
 
 class LinearDualModel(DualTaskMixin):
     def __init__(self, mic_hyperparams=None, phenotype_hyperparams=None, random_state=42):

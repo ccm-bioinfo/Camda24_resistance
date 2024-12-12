@@ -1,7 +1,7 @@
 import optuna
 import mlflow
 
-from .evaluate import PredictionEvaluator
+from ..score.evaluate import PredictionEvaluator
 from .validation import CrossValidation
 class Tuner:
     def __init__(self, model, x, y, validation_function, param_space):

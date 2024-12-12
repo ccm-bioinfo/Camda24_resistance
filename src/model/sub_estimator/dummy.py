@@ -1,4 +1,4 @@
-from .dual import DualTaskMixin
+from .meta_estimator.dual import DualTaskMixin
 from sklearn.dummy import DummyRegressor, DummyClassifier
 
 class DummyDualModel(DualTaskMixin):

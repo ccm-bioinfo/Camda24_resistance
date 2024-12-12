@@ -1,6 +1,6 @@
 from preprocess.feature import FeaturesTransformer
 from preprocess.target import TargetTransformer
-from .oversample import Oversampler
+from .preprocess.oversample import Oversampler
 
 class CompleteTrainer:
     def __init__(self, model, df, oversample_target_index = 1):
