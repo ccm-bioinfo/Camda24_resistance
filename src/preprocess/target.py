@@ -4,7 +4,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.metrics import confusion_matrix
 import pandas as pd
 import numpy as np
-from utils import Log2Transformer, RoundTransformer, ReshapeTransformer
+from common.utils import Log2Transformer, RoundTransformer, ReshapeTransformer
 
 class TargetsTransformer(BaseEstimator, TransformerMixin):
     def __init__(self, apply_multiclass_encoding=False, apply_log2=False, apply_round_to_int=False):

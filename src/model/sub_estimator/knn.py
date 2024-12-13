@@ -1,5 +1,5 @@
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
-from .dual import DualTaskMixin
+from .meta_estimator.dual import DualTaskMixin
 
 class KnnDualModel(DualTaskMixin):
     def __init__(self, regressor_params=None, classifier_params=None, random_state=42):

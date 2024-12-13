@@ -3,7 +3,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 import pandas as pd
 import numpy as np
-from config import DISCRETE_LIMIT
+from common.config import DISCRETE_LIMIT
 
 class FeaturesTransformer(BaseEstimator, TransformerMixin):
     def __init__(self, discrete_limit=DISCRETE_LIMIT, category_transformer=None, continuous_transformer=None):

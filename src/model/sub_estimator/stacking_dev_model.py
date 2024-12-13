@@ -10,7 +10,7 @@ from sklearn.preprocessing import OneHotEncoder
 from imblearn.over_sampling import RandomOverSampler
 
 
-from utils import RoundLog2Transformer
+from common.utils import RoundLog2Transformer
 
 class ClusterAugmentEncoder(BaseEstimator, TransformerMixin):
     def __init__(self, n_clusters=3):

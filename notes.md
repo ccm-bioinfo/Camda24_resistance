@@ -46,3 +46,23 @@ model the data
   - neural network
 
 log models and run nested cross validation
+
+# subset data
+# filter, antibiotic-selector (first, second or both) <-- transformer
+# treat imbalance
+# imbalance, random oversampling  <-- transformer
+# features
+# feature, encoding <-- transformer
+# targets
+# target_mic_task_type <-- variable ("classification", "regression")
+# target_mic, encoding, standardization <-- target transformer
+# target_phenotype, encoding <-- target transformer
+# sub-estimators
+# mic_estimator, standardization/encoding <-- estimator depends on target_mic_type
+# phenotype_estimator <-- estimator, classifier/regressor
+# meta-estimator
+# meta_estimator, subestimators instances from mic & phenotype <-- metaestimator, estimator 
+# scores
+#### score: custom function inside the meta estimator 
+# chaining
+#### possibly chain classifiers of mic and phenotype (both ways) incorporated in the meta estimator
