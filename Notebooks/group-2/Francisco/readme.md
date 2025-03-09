@@ -1,0 +1,1 @@
+Aquí subiré mis versiones y trabajo relacionado al trabajo del grupo dos, usaré los datos de las carpetas de grupo dos. subiré un archivo de funciones poco efeciente que se va a tener que refinar ya que estoy copiando muchas funciones de victor que no uso (pero no quiero eliminar por si las uso despues)
